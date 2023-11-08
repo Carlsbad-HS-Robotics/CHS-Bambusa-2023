@@ -14,16 +14,40 @@ public class Wheel {
 
     private PID pid = new PID(PID.Type.move);
 
+    private double lastAngle;
+
+    public double calculateError(double current, double target) {
+
+        double error1;
+        double error2;
+
+        if (current > target) {
+            error2 = (target + 2 * Math.PI) - current;
+        } else {
+            error2 = (target - 2 * Math.PI) - current;
+        }
+
+        error1 = target - current;
+        return Math.abs(error1) > Math.abs(error2) ? error2 : error1;
+    }
+
     public Wheel(DcMotor speed, CRServo angle, AnalogInput enc) {
         speedMotor = speed;
         angleMotor = angle;
         encoder = enc;
+
+        PID.setConstantsMove(0, 0, 0);
     }
 
     public void drive(double speed, double angle) {
+        if (angle != lastAngle) {
+            pid.reset();
+            lastAngle = angle;
+        }
+
         double currentAngle = encoder.getVoltage() * conversionFactor;
 
-        double error = currentAngle - angle;
+        double error = calculateError(currentAngle, angle);
 
         speedMotor.setPower (speed);
 

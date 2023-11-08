@@ -11,7 +11,7 @@ public class NanoClock extends Object {
     private long clockStart = System.nanoTime();
 
     /**
-     * Returns time that the system has been running for
+     * Returns time that the system has been running for.
      */
     public long totalTime(){
         return System.nanoTime();
