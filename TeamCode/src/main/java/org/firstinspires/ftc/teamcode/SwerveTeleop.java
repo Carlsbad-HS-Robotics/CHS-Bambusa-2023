@@ -48,23 +48,25 @@ public class SwerveTeleop extends LinearOpMode {
 
         //We don't know which axon assigns to which (I'm guessing for now)
 
-        backRight = new Wheel(motorBackRight, axon1, axon1enc);
-        backLeft = new Wheel(motorBackLeft, axon2, axon2enc);
-        frontRight = new Wheel(motorBackRight, axon3, axon3enc);
-        frontLeft = new Wheel(motorFrontLeft, axon4, axon4enc);
+        backRight = new Wheel(motorBackRight, axon4, axon4enc);
+        backLeft = new Wheel(motorBackLeft, axon3, axon3enc);
+        frontRight = new Wheel(motorFrontRight, axon1, axon1enc);
+        frontLeft = new Wheel(motorFrontLeft, axon2, axon2enc);
 
         swerveDrive = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
     }
     @Override
     public void runOpMode() throws InterruptedException {
         //Initialization
+        initialize();
 
         waitForStart();
 
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            swerveDrive.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            swerveDrive.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, this);
+            telemetry.update();
         }
     }
 }

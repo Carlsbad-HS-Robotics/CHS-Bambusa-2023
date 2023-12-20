@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+import com.qualcomm.robotcore.util.RobotLog;
 
 public class SwerveDrive {
 
-    public final double L = 0;
-    public final double W = 0;
+    public final double L = .2171;
+    public final double W = .2171;
 
     private Wheel backRight;
     private Wheel backLeft;
@@ -17,7 +20,7 @@ public class SwerveDrive {
         this.frontLeft = frontLeft;
     }
 
-    public void drive (double x1, double y1, double x2) {
+    public void drive (double x1, double y1, double x2, OpMode teleop) {
         double r = Math.sqrt ((L * L) + (W * W));
         y1 *= -1;
 
@@ -31,14 +34,22 @@ public class SwerveDrive {
         double frontRightSpeed = Math.sqrt ((b * b) + (d * d));
         double frontLeftSpeed = Math.sqrt ((b * b) + (c * c));
 
-        double backRightAngle = Math.atan2 (a, d) / Math.PI;
-        double backLeftAngle = Math.atan2 (a, c) / Math.PI;
-        double frontRightAngle = Math.atan2 (b, d) / Math.PI;
-        double frontLeftAngle = Math.atan2 (b, c) / Math.PI;
+        double backRightAngle = Math.atan2 (a, d) * 180 / Math.PI;
+        double backLeftAngle = Math.atan2 (a, c) * 180 / Math.PI;
+        double frontRightAngle = Math.atan2 (b, d) * 180 / Math.PI;
+        double frontLeftAngle = Math.atan2 (b, c) * 180 / Math.PI;
 
-        backRight.drive (backRightSpeed, backRightAngle);
-        backLeft.drive (backLeftSpeed, backLeftAngle);
-        frontRight.drive (frontRightSpeed, frontRightAngle);
-        frontLeft.drive (frontLeftSpeed, frontLeftAngle);
+        //RobotLog.d("ANGLE0: back right angle: " + backRightAngle);
+
+
+        teleop.telemetry.addData("back right angle", backRightAngle);
+//        teleop.telemetry.addData("front right angle", frontRightAngle);
+//        teleop.telemetry.addData("back left angle", backLeftAngle);
+//        teleop.telemetry.addData("front left angle", frontLeftAngle);
+
+        backRight.drive (backRightSpeed, backRightAngle, teleop);
+//        backLeft.drive (backLeftSpeed, backLeftAngle, teleop);
+//        frontRight.drive (frontRightSpeed, frontRightAngle, teleop);
+//        frontLeft.drive (frontLeftSpeed, frontLeftAngle, teleop);
     }
 }

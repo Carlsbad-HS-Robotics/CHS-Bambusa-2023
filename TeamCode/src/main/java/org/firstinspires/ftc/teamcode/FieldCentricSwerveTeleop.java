@@ -56,10 +56,10 @@ public class FieldCentricSwerveTeleop extends LinearOpMode {
         double direcpod3;
         double direcpod4;
 
-        double offsetpod1 = axon1enc.getVoltage()*conversionFactor;
-        double offsetpod2 = axon2enc.getVoltage()*conversionFactor;
-        double offsetpod3 = axon3enc.getVoltage()*conversionFactor;
-        double offsetpod4 = axon4enc.getVoltage()*conversionFactor;
+        double offsetpod1 = axon1enc.getVoltage() * conversionFactor;
+        double offsetpod2 = axon2enc.getVoltage() * conversionFactor;
+        double offsetpod3 = axon3enc.getVoltage() * conversionFactor;
+        double offsetpod4 = axon4enc.getVoltage() * conversionFactor;
 
         double dist1;
         double dist2;
@@ -83,9 +83,9 @@ public class FieldCentricSwerveTeleop extends LinearOpMode {
         imu.initialize(parameters);
 
         boolean OneIsReversed = false;
-        boolean TwoIsReversed= false;
-        boolean ThreeIsReversed= false;
-        boolean FourIsReversed= false;
+        boolean TwoIsReversed = false;
+        boolean ThreeIsReversed = false;
+        boolean FourIsReversed = false;
 
         int q2 = 0;
         double Q2 = 1;
@@ -99,7 +99,7 @@ public class FieldCentricSwerveTeleop extends LinearOpMode {
         waitForStart();
 
         if (isStopRequested()) return;
-
+/*
         while (opModeIsActive()) {
 
                 double botHeading = -imu.getAngularOrientation().firstAngle; //the direction the bot is facing, used for field oriented drive
@@ -414,7 +414,7 @@ public class FieldCentricSwerveTeleop extends LinearOpMode {
                     axon1.setPower(0); state = 17;
                     OneIsReversed = false;
                 }
-                else if (magpod1 == 0){
+               // else if (magpod1 == 0){
                     axon1.setPower(0); state = 18;
                 }//pod1 code
 /////////////////////////////////////////////////////////////////////
@@ -777,5 +777,8 @@ public class FieldCentricSwerveTeleop extends LinearOpMode {
                 telemetry.addData("state", state);
                 telemetry.update();
             }
-        }
+
+ */
+    }
+}
 

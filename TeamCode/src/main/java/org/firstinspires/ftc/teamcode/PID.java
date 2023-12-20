@@ -1,6 +1,7 @@
 // Credit to Buffalo Wings 5015 motion library PID controller.
 // https://github.com/Carlsbad-HS-Robotics/5015-Centerstage/blob/master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/MotionLibrary/util/PID.java
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.util.RobotLog;
 
 /**
  * Class with built in methods for a PID feedforward loop
@@ -134,6 +135,26 @@ public class PID {
             i += timeChange * error * KI;
             //D
             d = (error - lastError) / timeChange * KD;
+
+            pidout = p + i + d;
+            lastUpdateTime = updateTime;
+        }
+    }
+
+    public void pid(double error, double angle) {
+
+        updateTime = Timer.secondsLifeSpan();
+        timeChange = updateTime - lastUpdateTime;
+        if (timeChange != 0) {
+            //P
+            p = error * KP;
+            //I
+            i += timeChange * error * KI;
+            //D
+            d = (error - lastError) / timeChange * KD;
+
+            RobotLog.d("TIME: " + updateTime);
+            RobotLog.d("ANGLE: " + angle);
 
             pidout = p + i + d;
             lastUpdateTime = updateTime;
